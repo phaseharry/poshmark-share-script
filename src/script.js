@@ -31,6 +31,8 @@ const VERIFICATION_TIMEOUT = 5 * 60 * 1000;
 // how often to re-ping while a captcha is still sitting there unsolved
 const CAPTCHA_REALERT = 30 * 1000;
 
+const MAX_RUNS = 20
+
 // chrome will populate the profile itself, but the directory has to be there first - and on a
 // nested path chrome won't create the intermediate folders.
 const ensureProfileDirectory = () => {
@@ -64,10 +66,9 @@ const main = async () => {
   try {
     await loginAndRunInitialSetup(driver);
 
-    let run = 0;
-    let maxRun = 20;
+    let run = 1;
 
-    while (run <= maxRun) {
+    while (run <= MAX_RUNS) {
       console.log(`currentRun: ${run}`);
       await share(driver);
       await setTimeoutPromise(randomIntFromInterval(3000, 10000));
