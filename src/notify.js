@@ -26,4 +26,4 @@ const alertUser = (title, message) => {
   );
 };
 
-module.exports = { alertUser };
+export { alertUser };
